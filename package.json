@@ -9,8 +9,6 @@
   "author": "Iana Zolnikova",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.6.1",
-    "angular-socket-io": "^0.7.0",
     "body-parser": "^1.16.0",
     "express": "^4.14.0",
     "mongodb": "^2.2.21",

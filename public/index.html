@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="DroneCafeApp">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Drone Cafe</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" />
+
+        <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
+        <script src="https://code.angularjs.org/1.6.1/angular-resource.min.js"></script>
+        <script src="https://npmcdn.com/angular-ui-router@1.0.0-beta.3/release/angular-ui-router.js"></script>
+    </head>
+<body>
+    <h2>Hello world</h2>
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+
+    <script src="src/DroneCafeApp.js"></script>
+    <script src="src/DishList/DishListComponent.js"></script>
+    <script src="src/DishService/DishService.js"></script>
+</body>
+</html>

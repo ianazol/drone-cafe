@@ -1,8 +1,9 @@
 "use strict";
 
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let OrderSchema = mongoose.Schema({
+let OrderSchema = Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -12,8 +13,12 @@ let OrderSchema = mongoose.Schema({
         ref: 'Dish'
     },
     status: {
-        type: "String",
+        type: String,
         enum: ["Заказано", "Готовится", "Доставляется", "Возникли сложности", "Подано"]
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

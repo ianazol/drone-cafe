@@ -19,5 +19,5 @@ DroneCafeApp.component("dishList", {
         };
 
         vm.getDishList();
-    },
+    }
 });

@@ -13,14 +13,31 @@
         <script src="https://npmcdn.com/angular-paging/dist/paging.min.js"></script>
     </head>
 <body>
-    <h2>Hello world</h2>
-    <div class="container">
+    <header class="red lighten-1 white-text">
+        <div class="section" id="index-banner">
+            <div class="container">
+                <h1 class="header center-on-small-only">Drone cafe</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <br /><br />
         <ui-view></ui-view>
-    </div>
+        <br /><br />
+    </main>
+
+    <footer class="page-footer red lighten-1">
+        <div class="footer-copyright">
+            <div class="container">© Iana Zolnikova</div>
+        </div>
+    </footer>
 
     <script src="src/DroneCafeApp.js"></script>
     <script src="src/Preloader/PreloaderComponent.js"></script>
     <script src="src/DishList/DishListComponent.js"></script>
+    <script src="src/UserHome/UserHomeComponent.js"></script>
+    <script src="src/Kitchen/KitchenComponent.js"></script>
     <script src="src/DishService/DishService.js"></script>
 </body>
 </html>

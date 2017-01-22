@@ -2,9 +2,17 @@ var DroneCafeApp = angular.module("DroneCafeApp", ["ui.router", "ngResource", "b
 
 DroneCafeApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
     $stateProvider
-        .state("dish-list", {
+        .state("user-home", {
             url: "/",
+            component: "userHome"
+        })
+        .state("dish-list", {
+            url: "/dishes",
             component: "dishList"
+        })
+        .state("kitchen", {
+            url: "/kitchen",
+            component: "kitchen"
         });
 
     $urlRouterProvider.otherwise('/');

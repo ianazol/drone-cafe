@@ -1,3 +1,5 @@
+<h3>Список блюд</h3>
+
 <preloader ng-if="$ctrl.loading"></preloader>
 
 <div class="row" ng-if="!$ctrl.loading">
@@ -13,7 +15,9 @@
             <div class="card-action">
                 <div class="row">
                     <div class="col s4 m4 l4 card-title">{{dish.price | currency}}</div>
-                    <div class="col s8 m8 l8 right-align"><a href="#" class="waves-effect waves-light btn">Заказать</a></div>
+                    <div class="col s8 m8 l8 right-align">
+                        <button class="waves-effect waves-light btn">Заказать</button>
+                    </div>
                 </div>
             </div>
         </div>

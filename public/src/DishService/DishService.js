@@ -5,8 +5,6 @@ DroneCafeApp
             dishId: '@dishId'
         }, {
             query: {
-                method: 'GET',
-                isArray: true,
                 transformResponse: function(responseData) {
                     return angular.fromJson(responseData);
                 }

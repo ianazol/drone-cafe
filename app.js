@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({"extended": true}));
 app.use(express.static('./public'));
 
 require("./server/routes/dish.routes")(app);
+require("./server/routes/user.routes")(app);
 
 //todo роуты с 404 и 500 ошибками
 

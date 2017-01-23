@@ -1,4 +1,5 @@
-DroneCafeApp
+angular
+    .module("DroneCafeApp")
     .factory("DishService", function($resource){
 
         return $resource('http://localhost:3000/api/dish/:dishId/', {

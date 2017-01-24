@@ -2,12 +2,15 @@ angular
     .module("DroneCafeApp")
     .component("dishList", {
         templateUrl: '/src/dish/dish-list.html',
-        controller: function(DishService){
+        controller: function(DishService, AuthService, $state){
             var vm = this;
 
             vm.limit = 12;
             vm.getDishList = getDishList;
             vm.formatList = formatList;
+
+            if (!AuthService.isAuthorized())
+                $state.go("login");
 
             getDishList();
 

@@ -25,7 +25,7 @@ module.exports.getByEmail = function(req, res){
                 error: error.message
             });
         } else if (!user){
-            return res.status(404).send({
+            return res/*.status(404)*/.send({
                 error: 'No user with that email has been found'
             });
         } else {
@@ -43,7 +43,7 @@ module.exports.update = function(req, res){
                 error: error.message
             });
         } else if (!user){
-            return res.status(404).send({
+            return res/*.status(404)*/.send({
                 error: 'No user with that id has been found'
             });
         } else {

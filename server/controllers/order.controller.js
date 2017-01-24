@@ -37,7 +37,7 @@ module.exports.update = function(req, res){
                 error: error.message
             });
         } else if (!order){
-            return res.status(404).send({
+            return res/*.status(404)*/.send({
                 error: 'No order with that id has been found'
             });
         } else {

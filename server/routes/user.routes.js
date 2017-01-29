@@ -7,6 +7,7 @@ module.exports = function(app){
         .get(user.getByEmail)
         .post(user.create);
 
-    app.route("/api/user/:id")
-        .put(user.update);
+    //todo update user or update balance может сделать отдельную тодель Balance
+    app.route("/api/user/:id/balance")
+        .put(user.addToBalance);
 };

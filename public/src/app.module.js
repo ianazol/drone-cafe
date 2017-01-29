@@ -1,5 +1,11 @@
 angular
-    .module("DroneCafeApp", ["ui.router", "ngResource", "ui.materialize", "ngMessages"])
+    .module("DroneCafeApp", [
+        "ui.router",
+        "ngResource",
+        "ui.materialize",
+        "ngMessages",
+        "ngStorage"
+    ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
         $stateProvider
             .state("user-home", {

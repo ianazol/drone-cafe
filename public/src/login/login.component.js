@@ -9,7 +9,6 @@ angular
 
             function login(credentials){
                 AuthService.login(credentials).then(function(user){
-                    console.log(user);
                     $state.go("user-home");
                 });
             }

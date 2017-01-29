@@ -34,10 +34,28 @@ module.exports.getByEmail = function(req, res){
     });
 };
 
-module.exports.update = function(req, res){
+// module.exports.update = function(req, res){
+//     let id = req.params.id;
+//
+//     User.findOneAndUpdate({"_id": id}, {$set: req.body}, {new: true}).exec(function(error, user){
+//         if (error) {
+//             return res.status(500).send({
+//                 error: error.message
+//             });
+//         } else if (!user){
+//             return res/*.status(404)*/.send({
+//                 error: 'No user with that id has been found'
+//             });
+//         } else {
+//             res.json(user);
+//         }
+//     });
+// };
+
+module.exports.addToBalance = function(req, res){
     let id = req.params.id;
 
-    User.findOneAndUpdate({"_id": id}, {$set: req.body}, {new: true}).exec(function(error, user){
+    User.findOneAndUpdate({"_id": id}, {$inc: {"balance": 100}}, {new: true}).exec(function(error, user){
         if (error) {
             return res.status(500).send({
                 error: error.message

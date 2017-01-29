@@ -2,32 +2,16 @@
     <div class="col s12 m6 l6">
         <div class="card-panel">
             <h5>Заказанные блюда</h5>
-            <table class="striped">
-                <thead>
-                <tr>
-                    <th width="60%">Название</th>
-                    <th>Действие</th>
-                </tr>
-                </thead>
+            <table class="striped" ng-if="$ctrl.newOrderList.length > 0">
                 <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Начать готовить</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Начать готовить</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Начать готовить</button>
-                    </td>
-                </tr>
+                    <tr ng-repeat="order in $ctrl.newOrderList">
+                        <td>
+                            <p>{{order.dish.title}}</p>
+                            <button class="waves-effect waves-light btn" ng-click="$ctrl.startCooking(order, $index)">
+                                Начать готовить
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -35,32 +19,16 @@
     <div class="col s12 m6 l6">
         <div class="card-panel">
             <h5>Готовятся</h5>
-            <table class="striped">
-                <thead>
-                <tr>
-                    <th width="60%">Название</th>
-                    <th>Действие</th>
-                </tr>
-                </thead>
+            <table class="striped" ng-if="$ctrl.cookingOrderList.length > 0">
                 <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Готово</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Готово</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>
-                        <button class="waves-effect waves-light btn">Готово</button>
-                    </td>
-                </tr>
+                    <tr ng-repeat="order in $ctrl.cookingOrderList">
+                        <td>
+                            <p>{{order.dish.title}}</p>
+                            <button class="waves-effect waves-light btn" ng-click="$ctrl.endCooking(order, $index)">
+                                Готово
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

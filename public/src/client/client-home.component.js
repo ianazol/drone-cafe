@@ -2,7 +2,7 @@ angular
     .module("DroneCafeApp")
     .component("clientHome", {
         templateUrl: '/src/client/client-home.html',
-        controller: function(AuthService, $sessionStorage, $state, UserService){
+        controller: function(AuthService, $sessionStorage, $state, UserService, OrderService){
             var vm = this;
 
             vm.user = $sessionStorage.user;
@@ -12,6 +12,8 @@ angular
                     $sessionStorage.user.balance = user.balance;
                 });
             };
+
+            vm.orderList = OrderService.query({user: vm.user._id});
 
             if (!AuthService.isAuthorized())
                 $state.go("login");

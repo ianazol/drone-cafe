@@ -31,6 +31,7 @@ angular
                     status: "Заказано"
                 }).$promise.then(function(data){
                     $sessionStorage.user.balance = data.user.balance;
+                    $state.go("user-home");
                 });
             };
 

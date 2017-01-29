@@ -17,20 +17,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Alvin</td>
-                    <td>$0.87</td>
-                    <td>Eclair</td>
-                </tr>
-                <tr>
-                    <td>Alan</td>
-                    <td>$3.76</td>
-                    <td>Jellybean</td>
-                </tr>
-                <tr>
-                    <td>Jonathan</td>
-                    <td>$7.00</td>
-                    <td>Lollipop</td>
+                <tr ng-repeat="order in $ctrl.orderList">
+                    <td>{{order.dish.title}}</td>
+                    <td>{{order.dish.price | currency}}</td>
+                    <td>{{order.status}}</td>
                 </tr>
             </tbody>
         </table>

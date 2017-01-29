@@ -62,7 +62,7 @@ module.exports.addToBalance = function(req, res){
 
     updateBalance(id, sum).then(function(user){
         if (!user){
-            return res/*.status(404)*/.send({
+            return res.send({
                 error: 'No user with that id has been found'
             });
         } else {

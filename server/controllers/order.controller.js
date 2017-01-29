@@ -7,32 +7,33 @@ const Dish = require("../controllers/dish.controller");
 module.exports.create = function(req, res){
     let order = new Order(req.body);
 
-    //todo refactor save to promise
-    order.save(function(error){
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        } else {
-            Dish.getById(order.dish).then(function(dish){
-                return User.updateBalance(order.user, -dish.price);
-            }).then(function(user){
-                order.user = user;
-                res.json(order);
-            });
-        }
+    order.save()
+    .then(function(order){
+        return Dish.getById(order.dish);
+    })
+    .then(function(dish){
+        return User.updateBalance(order.user, -dish.price);
+    })
+    .then(function(user){
+        order.user = user;
+        res.json(order);
+    })
+    .catch(function(error){
+        return res.status(500).send({
+            error: error.message
+        });
     });
 };
 
 module.exports.list = function(req, res){
-    Order.find(req.query).sort("-date").exec(function (error, orders) {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        } else {
-            res.json(orders);
-        }
+    Order.find(req.query).sort("-date").populate('dish').exec()
+    .then(function(orders){
+        res.json(orders);
+    })
+    .catch(function(error) {
+        return res.status(500).send({
+            error: error.message
+        });
     });
 };
 

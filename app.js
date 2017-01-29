@@ -12,6 +12,7 @@ database.connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended": true}));
 app.use(express.static('./public'));
+app.use('/scripts', express.static('./node_modules/'));
 
 require("./server/routes/dish.routes")(app);
 require("./server/routes/user.routes")(app);

@@ -44,7 +44,8 @@ function addToBalance(req, res){
     let id = req.params.id;
     let sum = req.body.sum;
 
-    updateBalance(id, sum).then(function(user){
+    updateBalance(id, sum)
+    .then(function(user){
         if (!user){
             return res.send({
                 error: 'No user with that id has been found'
@@ -52,7 +53,8 @@ function addToBalance(req, res){
         } else {
             res.json(user);
         }
-    }).catch(function(error){
+    })
+    .catch(function(error){
         return res.status(500).send({
             error: error.message
         });

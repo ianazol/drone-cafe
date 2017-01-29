@@ -5,13 +5,15 @@ angular
         controller: function(AuthService, $sessionStorage, $state, UserService, OrderService){
             var vm = this;
 
-            vm.user = $sessionStorage.user;
-
-            if (!AuthService.isAuthorized())
+            if (!AuthService.isAuthorized()){
                 return $state.go("login");
+            } else {
+                vm.user = $sessionStorage.user;
+            }
 
             vm.addMoney = function(){
-                UserService.addToBalance({ _id: vm.user._id, sum: 100}).$promise.then(function(user){
+                UserService.addToBalance({ _id: vm.user._id, sum: 100}).$promise
+                .then(function(user){
                     $sessionStorage.user.balance = user.balance;
                 });
             };

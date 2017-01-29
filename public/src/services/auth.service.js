@@ -3,11 +3,7 @@ angular
     .factory("AuthService", function(UserService, $sessionStorage){
         var service = {};
 
-        service.login = login;
-        service.isAuthorized = isAuthorized;
-        service.getUserData = getUserData;
-
-        function login(credentials){
+        service.login = function(credentials){
             //todo подумать, как можно порефакторить эти промисы
             return UserService.get({email: credentials.email}).$promise.then(function(user){
                 if (user._id){
@@ -21,15 +17,15 @@ angular
                     return user;
                 });
             });
-        }
+        };
 
-        function isAuthorized() {
+        service.isAuthorized = function() {
             return !!$sessionStorage.user;
-        }
+        };
 
-        function getUserData() {
+        service.getUserData = function() {
             return $sessionStorage.user;
-        }
+        };
 
         return service;
     });

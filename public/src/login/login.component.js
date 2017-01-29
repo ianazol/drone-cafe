@@ -5,10 +5,9 @@ angular
         controller: function(AuthService, $state){
             var vm = this;
 
-            vm.login = login;
-
-            function login(credentials){
-                AuthService.login(credentials).then(function(user){
+            vm.login = function(credentials){
+                AuthService.login(credentials)
+                .then(function(user){
                     $state.go("user-home");
                 });
             }

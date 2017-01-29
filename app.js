@@ -7,6 +7,10 @@ const database  = require("./server/config/lib/database");
 const port      = process.env.PORT || config.server.defaultPort;
 const bodyParser = require("body-parser");
 
+var server = app.listen(port, function() {
+    console.log('Listening on port ' + port)
+});
+
 database.connect();
 
 app.use(bodyParser.json());
@@ -17,6 +21,17 @@ app.use('/scripts', express.static('./node_modules/'));
 require("./server/routes/dish.routes")(app);
 require("./server/routes/user.routes")(app);
 require("./server/routes/order.routes")(app);
+
+var io = require("socket.io").listen(server);
+
+io.on("connection", function(socket){
+
+    socket.on("statusChanged", function(data){
+        //console.log(data);
+        socket.broadcast.emit("statusChanged", data);
+    });
+    //console.log("a user connected");
+});
 
 //todo роуты с 404 и 500 ошибками
 
@@ -38,7 +53,3 @@ for(var x = 0; x <= data.length - 1; x++){
     });
 }
 */
-
-app.listen(port, function() {
-    console.log('Listening on port ' + port)
-});

@@ -2,7 +2,7 @@ angular
     .module("DroneCafeApp")
     .component("clientHome", {
         templateUrl: '/src/client/client-home.html',
-        controller: function(AuthService, $sessionStorage, $state, UserService, OrderService){
+        controller: function(AuthService, $sessionStorage, $state, UserService, OrderService, appSocket, $scope){
             var vm = this;
 
             if (!AuthService.isAuthorized()){
@@ -19,5 +19,21 @@ angular
             };
 
             vm.orderList = OrderService.query({user: vm.user._id});
+
+            //todo понять, зачем он тут нужен
+            //vm.appSocket = appSocket;
+
+            appSocket.on("statusChanged", function(data){
+                console.dir(data);
+                vm.orderList = vm.orderList.map(function(order){
+                    if (order._id == data.orderId)
+                        order.status = data.status;
+                    return order;
+                })
+            });
+
+            $scope.$on("$destroy", function(){
+                appSocket.removeListener();
+            });
         }
     });

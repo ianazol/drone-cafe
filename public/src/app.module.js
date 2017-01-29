@@ -4,7 +4,8 @@ angular
         "ngResource",
         "ui.materialize",
         "ngMessages",
-        "ngStorage"
+        "ngStorage",
+        "btford.socket-io"
     ])
     .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
         $stateProvider

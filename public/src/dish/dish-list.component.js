@@ -45,6 +45,6 @@ angular
                 });
             };
 
-            getDishList();
+            vm.getDishList();
         }
     });

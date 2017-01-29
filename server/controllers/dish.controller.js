@@ -2,32 +2,33 @@
 
 const Dish = require("../models/dish.model");
 
-module.exports.list = function(req, res){
-    //pagination
+function list(req, res){
     let page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
     let skip = (page - 1) * limit;
 
-    Dish.find().count().exec(function (error, total) {
+    let totalCount = 0;
 
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        }
-
-        Dish.find()/*.sort("rating")*/.limit(limit).skip(skip).exec(function (error, dishes) {
-            if (error) {
-                return res.status(500).send({
-                    error: error.message
-                });
-            } else {
-                res.json({list: dishes, total: total});
-            }
+    Dish.find().count().exec()
+    .then(function (total) {
+        totalCount = total;
+        return Dish.find().limit(limit).skip(skip).exec();
+    })
+    .then(function (dishes) {
+        res.json({list: dishes, total: totalCount});
+    })
+    .catch(function(error){
+        return res.status(500).send({
+            error: error.message
         });
     });
-};
+}
 
-module.exports.getById = function(dishID){
+function getById(dishID){
     return Dish.findById(dishID).exec();
+}
+
+module.exports = {
+    list,
+    getById
 };

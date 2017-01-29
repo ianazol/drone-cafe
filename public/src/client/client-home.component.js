@@ -7,6 +7,9 @@ angular
 
             vm.user = $sessionStorage.user;
 
+            if (!AuthService.isAuthorized())
+                return $state.go("login");
+
             vm.addMoney = function(){
                 UserService.addToBalance({ _id: vm.user._id, sum: 100}).$promise.then(function(user){
                     $sessionStorage.user.balance = user.balance;
@@ -14,8 +17,5 @@ angular
             };
 
             vm.orderList = OrderService.query({user: vm.user._id});
-
-            if (!AuthService.isAuthorized())
-                $state.go("login");
         }
     });

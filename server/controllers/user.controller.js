@@ -2,61 +2,45 @@
 
 const User = require("../models/user.model");
 
-module.exports.create = function(req, res){
+function create(req, res){
     let user = new User(req.body);
 
-    user.save(function(error){
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        } else {
-            res.json(user);
-        }
+    user.save()
+    .then(function(){
+        res.json(user);
+    })
+    .catch(function(error){
+        return res.status(500).send({
+            error: error.message
+        });
     });
-};
+}
 
-module.exports.getByEmail = function(req, res){
+function getByEmail(req, res){
     let email = req.query.email;
 
-    User.findOne({email: email}).exec(function(error, user) {
-        if (error) {
-            return res.status(500).send({
-                error: error.message
-            });
-        } else if (!user){
-            return res/*.status(404)*/.send({
+    User.findOne({email: email}).exec()
+    .then(function(user){
+        if (!user){
+            return res.send({
                 error: 'No user with that email has been found'
             });
         } else {
             res.json(user);
         }
+    })
+    .catch(function(error){
+        return res.status(500).send({
+            error: error.message
+        });
     });
-};
-
-// module.exports.update = function(req, res){
-//     let id = req.params.id;
-//
-//     User.findOneAndUpdate({"_id": id}, {$set: req.body}, {new: true}).exec(function(error, user){
-//         if (error) {
-//             return res.status(500).send({
-//                 error: error.message
-//             });
-//         } else if (!user){
-//             return res/*.status(404)*/.send({
-//                 error: 'No user with that id has been found'
-//             });
-//         } else {
-//             res.json(user);
-//         }
-//     });
-// };
+}
 
 function updateBalance(userId, sum){
     return User.findOneAndUpdate({"_id": userId}, {$inc: {"balance": sum}}, {new: true}).exec();
 }
 
-module.exports.addToBalance = function(req, res){
+function addToBalance(req, res){
     let id = req.params.id;
     let sum = req.body.sum;
 
@@ -73,6 +57,11 @@ module.exports.addToBalance = function(req, res){
             error: error.message
         });
     });
-};
+}
 
-module.exports.updateBalance = updateBalance;
+module.exports = {
+    create,
+    getByEmail,
+    updateBalance,
+    addToBalance
+};

@@ -14,7 +14,7 @@ angular
 
             //todo возможно надо убрать AuthServiec или сделать там геттер для получения user
             if (!AuthService.isAuthorized())
-                $state.go("login");
+                return $state.go("login");
 
             vm.isAvailable = function(dishPrice){
                 return user.balance >= dishPrice;

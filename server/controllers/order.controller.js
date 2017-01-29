@@ -1,17 +1,25 @@
 "use strict";
 
 const Order = require("../models/order.model");
+const User = require("../controllers/user.controller");
+const Dish = require("../controllers/dish.controller");
 
 module.exports.create = function(req, res){
     let order = new Order(req.body);
 
+    //todo refactor save to promise
     order.save(function(error){
         if (error) {
             return res.status(500).send({
                 error: error.message
             });
         } else {
-            res.json(order);
+            Dish.getById(order.dish).then(function(dish){
+                return User.updateBalance(order.user, -dish.price);
+            }).then(function(user){
+                order.user = user;
+                res.json(order);
+            });
         }
     });
 };

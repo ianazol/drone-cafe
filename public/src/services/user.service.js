@@ -7,7 +7,7 @@ angular
                 _id: '@_id'
             },
             {
-                updateBalance: {
+                addToBalance: {
                     method: 'PUT',
                     url: 'http://localhost:3000/api/user/:_id/balance'
                 }

@@ -8,7 +8,7 @@ angular
             vm.user = $sessionStorage.user;
 
             vm.addMoney = function(){
-                UserService.updateBalance({ _id: vm.user._id}).$promise.then(function(user){
+                UserService.addToBalance({ _id: vm.user._id, sum: 100}).$promise.then(function(user){
                     $sessionStorage.user.balance = user.balance;
                 });
             };

@@ -27,3 +27,7 @@ module.exports.list = function(req, res){
         });
     });
 };
+
+module.exports.getById = function(dishID){
+    return Dish.findById(dishID).exec();
+};

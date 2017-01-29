@@ -2,24 +2,39 @@ angular
     .module("DroneCafeApp")
     .component("dishList", {
         templateUrl: '/src/dish/dish-list.html',
-        controller: function(DishService, AuthService, $state, $sessionStorage){
+        controller: function(DishService, AuthService, $state, $sessionStorage, OrderService){
             var vm = this;
+
+
+            var user = $sessionStorage.user;
 
             vm.limit = 12;
             vm.getDishList = getDishList;
             vm.formatList = formatList;
 
-            vm.isAvailable = function(dishPrice){
-                return $sessionStorage.user.balance >= dishPrice;
-            };
-
-            vm.getEnoughMoney = function(dishPrice){
-                return dishPrice - $sessionStorage.user.balance;
-            };
-
             //todo возможно надо убрать AuthServiec или сделать там геттер для получения user
             if (!AuthService.isAuthorized())
                 $state.go("login");
+
+            vm.isAvailable = function(dishPrice){
+                return user.balance >= dishPrice;
+            };
+
+            vm.getEnoughMoney = function(dishPrice){
+                return dishPrice - user.balance;
+            };
+
+            vm.buy = function(dish){
+                OrderService.save({
+                    user: user._id,
+                    dish: dish._id,
+                    status: "Заказано"
+                }).$promise.then(function(data){
+                    $sessionStorage.user.balance = data.user.balance;
+                });
+            };
+
+
 
             getDishList();
 

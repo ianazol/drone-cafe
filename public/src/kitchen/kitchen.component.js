@@ -2,13 +2,13 @@ angular
     .module("DroneCafeApp")
     .component("kitchen", {
         templateUrl: '/src/kitchen/kitchen.html',
-        controller: function(OrderService, appSocket){
+        controller: function(OrderService, KitchenSocket){
             var vm = this;
 
             vm.newOrderList = OrderService.query({status: "Заказано"});
             vm.cookingOrderList = OrderService.query({status: "Готовится"});
 
-            vm.appSocket = appSocket;
+            //vm.appSocket = appSocket;
 
             vm.startCooking = function(order, $index){
                 OrderService.update({ _id: order._id, status: "Готовится"}).$promise
@@ -17,12 +17,10 @@ angular
                     if (result.error)
                         return false;
 
-                    console.log("z vjkjltw");
-
                     vm.newOrderList.splice($index, 1);
                     vm.cookingOrderList.push(order);
 
-                    appSocket.emit('statusChanged', {
+                    KitchenSocket.emit('statusChanged', {
                         orderId: order._id,
                         status: "Готовится"
                     });
@@ -38,11 +36,15 @@ angular
 
                     vm.cookingOrderList.splice($index, 1);
 
-                    appSocket.emit('statusChanged', {
+                    KitchenSocket.emit('statusChanged', {
                         orderId: order._id,
                         status: "Доставляется"
                     });
                 });
-            }
+            };
+
+            KitchenSocket.on("newOrder", function(data){
+                vm.newOrderList.push(data);
+            });
         }
     });

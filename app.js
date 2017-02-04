@@ -7,11 +7,13 @@ const database  = require("./server/config/lib/database");
 const port      = process.env.PORT || config.server.defaultPort;
 const bodyParser = require("body-parser");
 
-var server = app.listen(port, function() {
+database.connect();
+
+let server = app.listen(port, function() {
     console.log('Listening on port ' + port)
 });
 
-database.connect();
+var socket = require('./server/controllers/socket')(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended": true}));
@@ -20,18 +22,9 @@ app.use('/scripts', express.static('./node_modules/'));
 
 require("./server/routes/dish.routes")(app);
 require("./server/routes/user.routes")(app);
-require("./server/routes/order.routes")(app);
+require("./server/routes/order.routes")(app, socket);
 
-var io = require("socket.io").listen(server);
 
-io.on("connection", function(socket){
-
-    socket.on("statusChanged", function(data){
-        //console.log(data);
-        socket.broadcast.emit("statusChanged", data);
-    });
-    //console.log("a user connected");
-});
 
 //todo роуты с 404 и 500 ошибками
 

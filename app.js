@@ -2,8 +2,8 @@
 
 const express   = require("express");
 const app       = express();
-const config    = require("./server/config/config");
-const database  = require("./server/config/lib/database");
+const config    = require("./server/config");
+const database  = require("./server/lib/database");
 const port      = process.env.PORT || config.server.defaultPort;
 const bodyParser = require("body-parser");
 
@@ -13,7 +13,7 @@ let server = app.listen(port, function() {
     console.log('Listening on port ' + port)
 });
 
-var socket = require('./server/controllers/socket')(server);
+let socket = require('./server/lib/socket')(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({"extended": true}));

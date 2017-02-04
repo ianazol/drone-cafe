@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-    server:{
+    server: {
         defaultPort: 3000,
     },
     db: {

@@ -20,6 +20,7 @@
     "materialize-css": "^0.98.0",
     "mongodb": "^2.2.21",
     "mongoose": "^4.7.7",
+    "netology-fake-drone-api": "^1.0.1",
     "ngstorage": "^0.3.11",
     "socket.io": "^1.7.2"
   }

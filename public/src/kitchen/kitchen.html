@@ -5,14 +5,14 @@
             <h5>Заказанные блюда</h5>
             <table class="striped" ng-if="$ctrl.newOrderList.length > 0">
                 <tbody>
-                    <tr ng-repeat="order in $ctrl.newOrderList">
-                        <td>
-                            <p>{{order.dish.title}}</p>
-                            <button class="waves-effect waves-light btn" ng-click="$ctrl.startCooking(order, $index)">
-                                Начать готовить
-                            </button>
-                        </td>
-                    </tr>
+                <tr ng-repeat="order in $ctrl.newOrderList">
+                    <td>
+                        <p>{{order.dish.title}}</p>
+                        <button class="waves-effect waves-light btn" ng-click="$ctrl.startCooking(order, $index)">
+                            Начать готовить
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -22,14 +22,14 @@
             <h5>Готовятся</h5>
             <table class="striped" ng-if="$ctrl.cookingOrderList.length > 0">
                 <tbody>
-                    <tr ng-repeat="order in $ctrl.cookingOrderList">
-                        <td>
-                            <p>{{order.dish.title}}</p>
-                            <button class="waves-effect waves-light btn" ng-click="$ctrl.endCooking(order, $index)">
-                                Готово
-                            </button>
-                        </td>
-                    </tr>
+                <tr ng-repeat="order in $ctrl.cookingOrderList">
+                    <td>
+                        <p>{{order.dish.title}}</p>
+                        <button class="waves-effect waves-light btn" ng-click="$ctrl.endCooking(order, $index)">
+                            Готово
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

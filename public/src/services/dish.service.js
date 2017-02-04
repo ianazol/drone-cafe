@@ -1,6 +1,6 @@
 angular
     .module("DroneCafeApp")
-    .factory("DishService", function($resource){
+    .factory("DishService", function ($resource) {
 
         return $resource('http://localhost:3000/api/dish/:_id/',
             {
@@ -8,7 +8,7 @@ angular
             },
             {
                 query: {
-                    transformResponse: function(responseData) {
+                    transformResponse: function (responseData) {
                         return angular.fromJson(responseData);
                     }
                 }

@@ -2,7 +2,7 @@
 
 const user = require("../controllers/user.controller");
 
-module.exports = function(app){
+module.exports = function (app) {
     app.route("/api/user/")
         .get(user.getByEmail)
         .post(user.create);

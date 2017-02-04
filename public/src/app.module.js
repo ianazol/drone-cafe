@@ -7,7 +7,7 @@ angular
         "ngStorage",
         "btford.socket-io"
     ])
-    .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state("user-home", {
                 url: "/",

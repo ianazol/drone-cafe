@@ -9,6 +9,10 @@ angular
             {
                 update: {
                     method: "PUT"
+                },
+                deliver: {
+                    method: "PUT",
+                    url: 'http://localhost:3000/api/order/:_id/deliver'
                 }
             });
     });

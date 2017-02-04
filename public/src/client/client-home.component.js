@@ -4,6 +4,7 @@ angular
         templateUrl: '/src/client/client-home.html',
         controller: function(AuthService, $sessionStorage, $state, UserService, OrderService, ClientSocket, $scope){
             var vm = this;
+            vm.ordersLoading = true;
 
             if (!AuthService.isAuthorized()){
                 return $state.go("login");
@@ -18,10 +19,13 @@ angular
                 });
             };
 
-            vm.orderList = OrderService.query({user: vm.user._id});
+            OrderService.query({user: vm.user._id}).$promise
+                .then(function(data){
+                    vm.orderList = data;
+                    vm.ordersLoading = false;
+                });
 
             ClientSocket.on("statusChanged", function(data){
-                console.dir(data);
                 vm.orderList = vm.orderList.map(function(order){
                     if (order._id == data.orderId)
                         order.status = data.status;

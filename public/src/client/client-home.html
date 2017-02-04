@@ -8,7 +8,10 @@
     </div>
     <div class="col s12 m7 l8 offset-l1">
         <h5>Заказанные блюда</h5>
-        <table>
+
+        <preloader ng-if="$ctrl.ordersLoading"></preloader>
+
+        <table ng-if="!$ctrl.ordersLoading">
             <thead>
                 <tr>
                     <th>Название</th>

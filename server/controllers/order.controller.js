@@ -31,7 +31,7 @@ function create(socket) {
 }
 
 function list(req, res) {
-    Order.find(req.query).sort("-date").populate('dish').exec()
+    Order.find(req.query).sort("-created").populate('dish').exec()
         .then(function (orders) {
             res.json(orders);
         })
@@ -45,15 +45,24 @@ function list(req, res) {
 function updateStatus(socket) {
     return function (req, res) {
         let id = req.params.id;
+        let query = {status: req.body.status};
 
-        Order.findOneAndUpdate({"_id": id}, {$set: {status: req.body.status}}, {new: true}).exec()
+        if (req.body.status == "Готовится"){
+            query["cookingStart"] = Date.now();
+        }
+
+        if (req.body.status == "Подано" || req.body.status == "Возникли сложности"){
+            query["finished"] = Date.now();
+        }
+
+        Order.findOneAndUpdate({"_id": id}, {$set: query}, {new: true}).populate('dish').exec()
             .then(function (order) {
                 if (!order) {
                     return res.send({
                         error: 'No order with that id has been found'
                     });
                 } else {
-                    socket.clientIO.to(order.user).emit("statusChanged", {orderId: id, status: order.status});
+                    socket.clientIO.to(order.user).emit("statusChanged", order);
                     res.json(order);
                 }
             })

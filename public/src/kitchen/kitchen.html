@@ -25,6 +25,7 @@
                 <tr ng-repeat="order in $ctrl.cookingOrderList">
                     <td>
                         <p>{{order.dish.title}}</p>
+                        <p><timer start="order.cookingStart"></timer></p>
                         <button class="waves-effect waves-light btn" ng-click="$ctrl.endCooking(order, $index)">
                             Готово
                         </button>

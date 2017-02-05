@@ -2,7 +2,7 @@ angular
     .module("DroneCafeApp")
     .component("clientHome", {
         templateUrl: '/src/client/client-home.html',
-        controller: function (AuthService, $sessionStorage, $state, UserService, OrderService, ClientSocket, $scope) {
+        controller: function (AuthService, $sessionStorage, $state, UserService, OrderService, ClientSocket) {
             var vm = this;
             vm.ordersLoading = true;
 
@@ -27,16 +27,16 @@ angular
 
             ClientSocket.emit("newConnect", {userID: vm.user._id});
 
-            ClientSocket.on("statusChanged", function (data) {
+            ClientSocket.on("statusChanged", function (changedOrder) {
                 vm.orderList = vm.orderList.map(function (order) {
-                    if (order._id == data.orderId)
-                        order.status = data.status;
+                    if (order._id == changedOrder._id)
+                        order = changedOrder;
                     return order;
                 })
             });
 
-            $scope.$on("$destroy", function () {
+            vm.$onDestroy = function(){
                 ClientSocket.removeAllListeners();
-            });
+            };
         }
     });

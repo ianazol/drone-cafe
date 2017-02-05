@@ -24,6 +24,7 @@
                 <td>{{order.dish.title}}</td>
                 <td>{{order.dish.price | currency}}</td>
                 <td>{{order.status}}</td>
+                <td><timer start="order.created" finish="order.finished"></timer></td>
             </tr>
             </tbody>
         </table>

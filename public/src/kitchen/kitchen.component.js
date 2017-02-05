@@ -2,7 +2,7 @@ angular
     .module("DroneCafeApp")
     .component("kitchen", {
         templateUrl: '/src/kitchen/kitchen.html',
-        controller: function (OrderService, KitchenSocket, $q, $scope) {
+        controller: function (OrderService, KitchenSocket, $q) {
             var vm = this;
             var newOrdersRequest = OrderService.query({status: "Заказано"}).$promise;
             var cookingOrdersRequest = OrderService.query({status: "Готовится"}).$promise;
@@ -24,7 +24,7 @@ angular
                             return false;
 
                         vm.newOrderList.splice($index, 1);
-                        vm.cookingOrderList.push(order);
+                        vm.cookingOrderList.push(result);
                     });
             };
 
@@ -36,7 +36,6 @@ angular
                             return false;
 
                         vm.cookingOrderList.splice($index, 1);
-
                         OrderService.deliver({_id: order._id});
                     });
             };
@@ -45,8 +44,8 @@ angular
                 vm.newOrderList.unshift(data);
             });
 
-            $scope.$on("$destroy", function () {
+            vm.$onDestroy = function(){
                 KitchenSocket.removeAllListeners();
-            });
+            };
         }
     });

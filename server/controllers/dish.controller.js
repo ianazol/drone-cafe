@@ -24,11 +24,11 @@ function list(req, res) {
         });
 }
 
-function getById(dishID) {
-    return Dish.findById(dishID).exec();
-}
+// function getById(dishID) {
+//     return Dish.findById(dishID).exec();
+// }
 
 module.exports = {
     list,
-    getById
+    //getById
 };

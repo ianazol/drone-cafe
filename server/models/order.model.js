@@ -16,14 +16,18 @@ let OrderSchema = Schema({
         type: String,
         enum: ["Заказано", "Готовится", "Доставляется", "Возникли сложности", "Подано"]
     },
+    sum: {
+        type: Number,
+        required: true
+    },
     created: {
         type: Date,
         default: Date.now
     },
-    cookingStart: {
+    finished: {
         type: Date
     },
-    finished: {
+    cookingStart: {
         type: Date
     }
 });

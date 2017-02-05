@@ -35,7 +35,11 @@ angular
                 })
             });
 
-            vm.$onDestroy = function(){
+            ClientSocket.on("balanceChanged", function (balance) {
+                $sessionStorage.user.balance = balance;
+            });
+
+            vm.$onDestroy = function () {
                 ClientSocket.removeAllListeners();
             };
         }

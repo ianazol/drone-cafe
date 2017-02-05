@@ -2,7 +2,7 @@
 
 const Order = require("../models/order.model");
 const User = require("../controllers/user.controller");
-const Dish = require("../controllers/dish.controller");
+//const Dish = require("../controllers/dish.controller");
 const drone = require("netology-fake-drone-api");
 
 function create(socket) {
@@ -11,11 +11,10 @@ function create(socket) {
 
         order.save()
             .then(function (order) {
-                return Dish.getById(order.dish);
+                return Order.populate(order, 'dish');
             })
-            .then(function (dish) {
-                order.dish = dish;
-                return User.updateBalance(order.user, -dish.price);
+            .then(function (order) {
+                return User.updateBalance(order.user, -order.sum);
             })
             .then(function (user) {
                 order.user = user;
@@ -47,11 +46,11 @@ function updateStatus(socket) {
         let id = req.params.id;
         let query = {status: req.body.status};
 
-        if (req.body.status == "Готовится"){
+        if (req.body.status == "Готовится") {
             query["cookingStart"] = Date.now();
         }
 
-        if (req.body.status == "Подано" || req.body.status == "Возникли сложности"){
+        if (req.body.status == "Подано" || req.body.status == "Возникли сложности") {
             query["finished"] = Date.now();
         }
 
@@ -76,17 +75,25 @@ function updateStatus(socket) {
 
 function deliver(socket) {
     return function (req, res) {
+        let order = {};
         let id = req.params.id;
 
-        drone
-            .deliver()
+        Order.findById(id).populate('dish').populate('user').exec()
+            .then(function (result) {
+                order = result;
+                return drone.deliver(order.user, order.dish);
+            })
             .then(function () {
                 req.body.status = "Подано";
                 updateStatus(socket)(req, res);
             })
             .catch(function () {
-                req.body.status = "Возникли сложности";
-                updateStatus(socket)(req, res);
+                User.updateBalance(order.user._id, order.sum)
+                    .then(function (user) {
+                        socket.clientIO.to(order.user._id).emit("balanceChanged", user.balance);
+                        req.body.status = "Возникли сложности";
+                        updateStatus(socket)(req, res);
+                    });
             });
     }
 }

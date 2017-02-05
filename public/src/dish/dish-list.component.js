@@ -38,7 +38,7 @@ angular
             };
 
             vm.buy = function (dish) {
-                OrderService.save({user: user._id, dish: dish._id, status: "Заказано"}).$promise
+                OrderService.save({user: user._id, dish: dish._id, status: "Заказано", sum: dish.price}).$promise
                     .then(function (data) {
                         $sessionStorage.user.balance = data.user.balance;
                         $state.go("user-home");

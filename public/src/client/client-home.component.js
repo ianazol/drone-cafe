@@ -35,6 +35,12 @@ angular
                 })
             });
 
+            ClientSocket.on("orderDeleted", function (deletedOrder) {
+                vm.orderList = vm.orderList.filter(function (order) {
+                    return order._id != deletedOrder._id;
+                })
+            });
+
             ClientSocket.on("balanceChanged", function (balance) {
                 $sessionStorage.user.balance = balance;
             });

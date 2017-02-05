@@ -41,9 +41,17 @@ function list(req, res) {
         });
 }
 
+function remove(order, socket) {
+    Order.remove({_id: order._id}).exec()
+        .then(function () {
+            socket.clientIO.to(order.user).emit("orderDeleted", order);
+        });
+}
+
 function updateStatus(socket) {
     return function (req, res) {
         let id = req.params.id;
+        let orderFinished = false;
         let query = {status: req.body.status};
 
         if (req.body.status == "Готовится") {
@@ -52,6 +60,7 @@ function updateStatus(socket) {
 
         if (req.body.status == "Подано" || req.body.status == "Возникли сложности") {
             query["finished"] = Date.now();
+            orderFinished = true;
         }
 
         Order.findOneAndUpdate({"_id": id}, {$set: query}, {new: true}).populate('dish').exec()
@@ -62,6 +71,12 @@ function updateStatus(socket) {
                     });
                 } else {
                     socket.clientIO.to(order.user).emit("statusChanged", order);
+                    if (orderFinished) {
+                        //todo вынести число в config
+                        setTimeout(function () {
+                            remove(order, socket);
+                        }, 120000);
+                    }
                     res.json(order);
                 }
             })
@@ -75,24 +90,22 @@ function updateStatus(socket) {
 
 function deliver(socket) {
     return function (req, res) {
-        let order = {};
         let id = req.params.id;
 
         Order.findById(id).populate('dish').populate('user').exec()
-            .then(function (result) {
-                order = result;
-                return drone.deliver(order.user, order.dish);
-            })
-            .then(function () {
-                req.body.status = "Подано";
-                updateStatus(socket)(req, res);
-            })
-            .catch(function () {
-                User.updateBalance(order.user._id, order.sum)
-                    .then(function (user) {
-                        socket.clientIO.to(order.user._id).emit("balanceChanged", user.balance);
-                        req.body.status = "Возникли сложности";
+            .then(function(order) {
+                drone.deliver(order.user, order.dish)
+                    .then(function () {
+                        req.body.status = "Подано";
                         updateStatus(socket)(req, res);
+                    })
+                    .catch(function () {
+                        User.updateBalance(order.user._id, order.sum)
+                            .then(function (user) {
+                                socket.clientIO.to(user._id).emit("balanceChanged", user.balance);
+                                req.body.status = "Возникли сложности";
+                                updateStatus(socket)(req, res);
+                            });
                     });
             });
     }

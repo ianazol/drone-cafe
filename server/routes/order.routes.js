@@ -8,6 +8,7 @@ module.exports = function (app, socket) {
         .post(order.create(socket));
 
     app.route("/api/order/:id")
+        .delete(order.remove)
         .put(order.updateStatus(socket));
 
     app.route("/api/order/:id/deliver")

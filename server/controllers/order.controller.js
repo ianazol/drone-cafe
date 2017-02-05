@@ -41,11 +41,31 @@ function list(req, res) {
         });
 }
 
-function remove(order, socket) {
-    Order.remove({_id: order._id}).exec()
-        .then(function () {
-            socket.clientIO.to(order.user).emit("orderDeleted", order);
+function deleteOrder(orderId) {
+    return Order.remove({_id: orderId}).exec();
+}
+
+function remove(req, res) {
+    let id = req.params.id;
+    deleteOrder(id)
+        .then(function (result) {
+            res.json(result);
+        })
+        .catch(function (error) {
+            return res.status(500).send({
+                error: error.message
+            });
         });
+}
+
+function autoRemove(order, socket) {
+    //todo вынести число в config
+    setTimeout(function () {
+        deleteOrder(order._id)
+            .then(function () {
+                socket.clientIO.to(order.user).emit("orderDeleted", order);
+            });
+    }, 120000);
 }
 
 function updateStatus(socket) {
@@ -72,10 +92,7 @@ function updateStatus(socket) {
                 } else {
                     socket.clientIO.to(order.user).emit("statusChanged", order);
                     if (orderFinished) {
-                        //todo вынести число в config
-                        setTimeout(function () {
-                            remove(order, socket);
-                        }, 120000);
+                        autoRemove(order, socket);
                     }
                     res.json(order);
                 }
@@ -93,7 +110,7 @@ function deliver(socket) {
         let id = req.params.id;
 
         Order.findById(id).populate('dish').populate('user').exec()
-            .then(function(order) {
+            .then(function (order) {
                 drone.deliver(order.user, order.dish)
                     .then(function () {
                         req.body.status = "Подано";
@@ -114,6 +131,7 @@ function deliver(socket) {
 module.exports = {
     create,
     list,
+    remove,
     updateStatus,
     deliver
 };

@@ -27,4 +27,7 @@ angular
             });
 
         $urlRouterProvider.otherwise('/');
-    }]);
+    }])
+    .constant('config', {
+        apiUrl: 'http://localhost:3000'
+    });

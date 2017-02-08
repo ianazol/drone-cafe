@@ -2,7 +2,7 @@ angular
     .module("DroneCafeApp")
     .factory("DishService", function ($resource) {
 
-        return $resource('http://localhost:3000/api/dish/:_id/',
+        return $resource(config.apiUrl + '/api/dish/:_id/',
             {
                 _id: '@_id'
             },

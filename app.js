@@ -26,22 +26,3 @@ require("./server/routes/order.routes")(app, socket);
 
 
 //todo роуты с 404 и 500 ошибками
-
-/*
- var data = require("./menu");
- var Dish = require("./server/models/dish.model");
-
- for(var x = 0; x <= data.length - 1; x++){
- //console.log(data[x]);
- new Dish({
- title: data[x].title,
- image: data[x].image,
- rating: data[x].rating,
- ingredients: data[x].ingredients,
- price: data[x].price
- })
- .save(function(err){
- if (err) console.log(err);
- });
- }
- */

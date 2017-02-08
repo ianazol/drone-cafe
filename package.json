@@ -4,7 +4,8 @@
   "description": "MEAN application",
   "main": "app.js",
   "scripts": {
-    "test": "node_modules/protractor/bin/protractor conf.js"
+    "test": "node_modules/protractor/bin/protractor conf.js",
+    "import": "node import"
   },
   "author": "Iana Zolnikova",
   "license": "ISC",

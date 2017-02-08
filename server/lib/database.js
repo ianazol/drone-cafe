@@ -3,9 +3,11 @@
 const config = require("../config");
 const mongoose = require("mongoose");
 
+var mongoUri = process.env.MONGODB_URI || config.db.url;
+
 module.exports.connect = function () {
     mongoose.Promise = global.Promise;
-    mongoose.connect(config.db.url, function (error) {
+    mongoose.connect(mongoUri, function (error) {
         if (error) {
             console.error("Could not connect to MongoDB");
             console.log(error);

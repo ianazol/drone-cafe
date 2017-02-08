@@ -1,6 +1,6 @@
 angular
     .module("DroneCafeApp")
-    .factory("DishService", function ($resource) {
+    .factory("DishService", function ($resource, config) {
 
         return $resource(config.apiUrl + '/api/dish/:_id/',
             {

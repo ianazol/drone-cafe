@@ -1,6 +1,6 @@
 angular
     .module("DroneCafeApp")
-    .factory("KitchenSocket", function (socketFactory) {
+    .factory("KitchenSocket", function (socketFactory, config) {
         var appIoSocket = io.connect(config.apiUrl + "/kitchen");
 
         appSocket = socketFactory({

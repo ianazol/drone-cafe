@@ -1,6 +1,6 @@
 angular
     .module("DroneCafeApp")
-    .factory("UserService", function ($resource) {
+    .factory("UserService", function ($resource, config) {
 
         return $resource(config.apiUrl + '/api/user/:_id/',
             {
@@ -9,7 +9,7 @@ angular
             {
                 addToBalance: {
                     method: 'PUT',
-                    url: 'http://localhost:3000/api/user/:_id/balance'
+                    url: config.apiUrl + '/api/user/:_id/balance'
                 }
             });
     });

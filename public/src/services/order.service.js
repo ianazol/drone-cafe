@@ -1,6 +1,6 @@
 angular
     .module("DroneCafeApp")
-    .factory("OrderService", function($resource){
+    .factory("OrderService", function($resource, config){
 
         return $resource(config.apiUrl + '/api/order/:_id/',
             {
@@ -12,7 +12,7 @@ angular
                 },
                 deliver: {
                     method: "PUT",
-                    url: 'http://localhost:3000/api/order/:_id/deliver'
+                    url: config.apiUrl + '/api/order/:_id/deliver'
                 }
             });
     });

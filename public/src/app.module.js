@@ -29,5 +29,5 @@ angular
         $urlRouterProvider.otherwise('/');
     }])
     .constant('config', {
-        apiUrl: 'http://localhost:3000'
+        apiUrl: 'https://fast-woodland-85967.herokuapp.com'
     });

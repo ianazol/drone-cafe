@@ -4,7 +4,7 @@
   "description": "MEAN application",
   "main": "app.js",
   "scripts": {
-    "test": "node_modules/protractor/bin/protractor conf.js",
+    "test": "node_modules/protractor/bin/protractor protractor-conf.js",
     "import": "node import"
   },
   "author": "Iana Zolnikova",
@@ -23,6 +23,8 @@
     "mongoose": "^4.7.7",
     "netology-fake-drone-api": "^1.0.1",
     "ngstorage": "^0.3.11",
+    "protractor": "^5.1.1",
+    "protractor-jasmine2-html-reporter": "0.0.7",
     "socket.io": "^1.7.2"
   }
 }

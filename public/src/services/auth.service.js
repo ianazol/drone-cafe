@@ -19,6 +19,10 @@ angular
             });
         };
 
+        service.logout = function() {
+            delete $sessionStorage.user;
+        };
+
         service.isAuthorized = function() {
             return !!$sessionStorage.user;
         };

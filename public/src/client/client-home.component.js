@@ -12,6 +12,11 @@ angular
                 vm.user = $sessionStorage.user;
             }
 
+            vm.logout = function () {
+                AuthService.logout();
+                return $state.go("login");
+            };
+
             vm.addMoney = function () {
                 UserService.addToBalance({_id: vm.user._id, sum: 100}).$promise
                     .then(function (user) {

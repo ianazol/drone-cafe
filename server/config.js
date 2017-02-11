@@ -6,5 +6,6 @@ module.exports = {
     },
     db: {
         url: 'mongodb://localhost/drone-cafe'
-    }
+    },
+    timeBeforeOrderDelete: 120000
 };

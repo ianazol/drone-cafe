@@ -8,7 +8,6 @@ angular
 
             vm.limit = 12;
 
-            //todo возможно надо убрать AuthServiec или сделать там геттер для получения user
             if (!AuthService.isAuthorized()) {
                 return $state.go("login");
             } else {

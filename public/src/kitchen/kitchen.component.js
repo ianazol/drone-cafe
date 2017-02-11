@@ -19,7 +19,6 @@ angular
             vm.startCooking = function (order, $index) {
                 OrderService.update({_id: order._id, status: "Готовится"}).$promise
                     .then(function (result) {
-                        //todo показ ошибок в интерфейсе
                         if (result.error)
                             return false;
 
@@ -31,7 +30,6 @@ angular
             vm.endCooking = function (order, $index) {
                 OrderService.update({_id: order._id, status: "Доставляется"}).$promise
                     .then(function (result) {
-                        //todo показ ошибок в интерфейсе
                         if (result.error)
                             return false;
 

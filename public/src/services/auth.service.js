@@ -4,7 +4,6 @@ angular
         var service = {};
 
         service.login = function(credentials){
-            //todo подумать, как можно порефакторить эти промисы
             return UserService.get({email: credentials.email}).$promise.then(function(user){
                 if (user._id){
                     $sessionStorage.user = user;

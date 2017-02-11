@@ -2,8 +2,8 @@
 
 const Order = require("../models/order.model");
 const User = require("../controllers/user.controller");
-//const Dish = require("../controllers/dish.controller");
 const drone = require("netology-fake-drone-api");
+const config = require("../config");
 
 function create(socket) {
     return function (req, res) {
@@ -59,13 +59,12 @@ function remove(req, res) {
 }
 
 function autoRemove(order, socket) {
-    //todo вынести число в config
     setTimeout(function () {
         deleteOrder(order._id)
             .then(function () {
                 socket.clientIO.to(order.user).emit("orderDeleted", order);
             });
-    }, 120000);
+    }, config.timeBeforeOrderDelete);
 }
 
 function updateStatus(socket) {

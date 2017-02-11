@@ -14,6 +14,12 @@ var ClientPage = function () {
         browser.get(dishListUrl);
     };
 
+    self.isLoaded = function () {
+        return browser.getCurrentUrl().then(function (currentUrl) {
+            return currentUrl == url;
+        })
+    };
+
     self.toNumber = function (promise) {
         return promise.then(function (value) {
             return parseFloat(value.replace(/,|\$/g, ''));

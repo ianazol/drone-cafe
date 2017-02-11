@@ -7,12 +7,17 @@ describe("Client page: ", function () {
 
     beforeAll(function () {
         loginPage = new LoginPage();
+        clientPage = new ClientPage();
+
         loginPage.get();
         loginPage.login();
+
+        browser.wait(function () {
+            return clientPage.isLoaded();
+        });
     });
 
     beforeEach(function () {
-        clientPage = new ClientPage();
         clientPage.get();
     });
 
@@ -27,6 +32,8 @@ describe("Client page: ", function () {
                 .then(function (values) {
                     expect(values[0] + 100).toEqual(values[1]);
                 });
+
+            expect(balanceBefore).toEqual(balanceBefore);
         })
     });
 
@@ -65,7 +72,9 @@ describe("Client page: ", function () {
             var dishPrice = clientPage.getDishPrice(firstEnabledDish);
             clientPage.buyDish(firstEnabledDish);
 
-            clientPage.get();
+            browser.wait(function () {
+                return clientPage.isLoaded();
+            });
             var balanceAfter = clientPage.getBalance();
 
             Promise.all([balanceBefore, dishPrice, balanceAfter])

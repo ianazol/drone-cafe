@@ -1,6 +1,6 @@
 var KitchenPage = function () {
     var self = this;
-    var url = "http://localhost:3000/#!/kitchen";
+    var url = "https://fast-woodland-85967.herokuapp.com/#!/kitchen";
 
     self.get = function () {
         browser.get(url);
@@ -24,6 +24,10 @@ var KitchenPage = function () {
                 return dishName === searchDish;
             })
         }).count();
+    };
+
+    self.getFirstBtn = function (list) {
+        return list.first().element(by.css('.btn'));
     }
 };
 

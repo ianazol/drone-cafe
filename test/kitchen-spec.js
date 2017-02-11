@@ -15,7 +15,7 @@ describe("Kitchen page: ", function () {
             kitchenPage.getFirstDish(firstList)
                 .then(function (firstDishName) {
                     var countBefore = kitchenPage.getDishCount(firstList, firstDishName);
-                    firstList.first().element(by.css('.btn')).click();
+                    kitchenPage.getFirstBtn(firstList).click();
                     var countAfter = kitchenPage.getDishCount(firstList, firstDishName);
 
                     expect(countAfter).toBeLessThan(countBefore);
@@ -29,7 +29,7 @@ describe("Kitchen page: ", function () {
             kitchenPage.getFirstDish(firstList)
                 .then(function (firstDishName) {
                     var countBefore = kitchenPage.getDishCount(secondList, firstDishName);
-                    firstList.first().element(by.css('.btn')).click();
+                    kitchenPage.getFirstBtn(firstList).click();
                     var countAfter = kitchenPage.getDishCount(secondList, firstDishName);
 
                     expect(countAfter).toBeGreaterThan(countBefore);
@@ -44,7 +44,7 @@ describe("Kitchen page: ", function () {
             kitchenPage.getFirstDish(secondList)
                 .then(function (firstDishName) {
                     var countBefore = kitchenPage.getDishCount(secondList, firstDishName);
-                    secondList.first().element(by.css('.btn')).click();
+                    kitchenPage.getFirstBtn(secondList).click();
                     var countAfter = kitchenPage.getDishCount(secondList, firstDishName);
 
                     expect(countAfter).toBeLessThan(countBefore);

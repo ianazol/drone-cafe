@@ -17,7 +17,7 @@
             <tbody>
             <tr ng-repeat="order in $ctrl.orderList">
                 <td>
-                    <b>{{order.dish.title}}</b>
+                    <b class="title">{{order.dish.title}}</b>
                     <p><b>Сумма заказа:</b> {{order.sum | currency}}</p>
                     <div ng-if="order.status == 'Возникли сложности'">
                         <button class="waves-effect red darken-1 btn" ng-click="$ctrl.cancelOrder(order)">Отменить
@@ -30,7 +30,7 @@
                             {{$ctrl.getEnoughMoney(order.sum) | currency}}</span>
                     </div>
                 </td>
-                <td style="vertical-align: top">{{order.status}}</td>
+                <td style="vertical-align: top" class="status">{{order.status}}</td>
                 <td style="vertical-align: top">
                     <timer start="order.created" finish="order.finished"></timer>
                 </td>
@@ -38,6 +38,6 @@
             </tbody>
         </table>
         <br/><br/>
-        <a ui-sref="dish-list" class="waves-effect waves-light btn">Добавить</a>
+        <a ui-sref="dish-list" class="waves-effect waves-light btn add-dish-btn">Добавить</a>
     </div>
 </div>

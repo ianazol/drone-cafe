@@ -30,5 +30,4 @@ angular
     }])
     .constant('config', {
         apiUrl: 'https://fast-woodland-85967.herokuapp.com'
-        //apiUrl: 'http://localhost:3000'
     });

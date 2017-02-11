@@ -24,5 +24,11 @@ require("./server/routes/dish.routes")(app);
 require("./server/routes/user.routes")(app);
 require("./server/routes/order.routes")(app, socket);
 
+app.use(function(req, res){
+    res.status(404).send('404 Not Found');
+});
 
-//todo роуты с 404 и 500 ошибками
+app.use(function(err, req, res, next){
+    console.dir(err);
+    res.status(500).send('500 Server Error');
+});

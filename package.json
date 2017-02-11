@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "node_modules/protractor/bin/protractor protractor-conf.js",
+    "start": "node app",
     "import": "node import"
   },
   "author": "Iana Zolnikova",

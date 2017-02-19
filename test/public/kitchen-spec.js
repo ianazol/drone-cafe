@@ -1,4 +1,4 @@
-var KitchenPage = require('../test/page-objects/kitchen-page');
+var KitchenPage = require('../public/page-objects/kitchen-page');
 
 describe("Kitchen page: ", function () {
     var kitchenPage = {};

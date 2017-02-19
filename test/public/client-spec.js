@@ -1,5 +1,5 @@
-var ClientPage = require('../test/page-objects/client-page');
-var LoginPage = require('../test/page-objects/login-page');
+var ClientPage = require('../public/page-objects/client-page');
+var LoginPage = require('../public/page-objects/login-page');
 
 describe("Client page: ", function () {
     var clientPage = {};

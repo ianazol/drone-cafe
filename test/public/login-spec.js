@@ -1,4 +1,4 @@
-var LoginPage = require('../test/page-objects/login-page');
+var LoginPage = require('../public/page-objects/login-page');
 
 describe("Login page: ", function () {
     var loginPage = {};

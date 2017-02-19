@@ -32,3 +32,5 @@ app.use(function(err, req, res, next){
     console.dir(err);
     res.status(500).send('500 Server Error');
 });
+
+module.exports = app;

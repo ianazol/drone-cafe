@@ -1,3 +1,5 @@
+Проект, разработанный в рамках [дипломного задания в Нетологии](https://bitbucket.org/netology-university/drone-cafe)   
+
 ##Demo
 Интерфейс клиента https://fast-woodland-85967.herokuapp.com   
 Интерфейс повара https://fast-woodland-85967.herokuapp.com/#!/kitchen  
